@@ -32,13 +32,13 @@ class Scraper:
                 urlopen(Request(
                     page + addition,
                     headers={
-                        'User-Agent': 'Opera/9.80 (X11; Linux i686; Ub'
-                        'untu/14.10) Presto/2.12.388 Version/12.16'
+                        'User-Agent': 'Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/2.12.388 Version/12.16'
                     })).read(),
                     'lxml'
                 )
+        except KeyboardInterrupt as e:
+            exit()
         except Exception as e:
-            print(e)
             soup = None
         return soup
 

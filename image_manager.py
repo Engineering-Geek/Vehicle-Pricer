@@ -42,7 +42,7 @@ class ImageManager:
         DataFrame should have columns 'Make', 'Model', 'Year', 'Image'
         """
         data = df.sample(frac=fraction)
-        data['Picture Links'] = data['Picture Links'].apply(lambda x: literal_eval(x))
+        data['Picture Links'] = data['Picture Links']
         master_csv = pd.DataFrame(columns=['Make', 'Model', 'Year', 'MSRP', 'Filepaths'])
         for i, row in tqdm(data.iterrows(), desc='downloading images', total=len(data)):
             urls = row['Picture Links']
@@ -81,5 +81,6 @@ class ImageManager:
 
 if __name__ == "__main__":
     im = ImageManager('sagemaker-vehicle-pricer-data')
-    df = im.scrape(n_makes=10)
-    df_master = im.url_images_to_bucket(df, fraction=1.0/16.0)
+    im.purge_bucket()
+    df = im.scrape(n_makes=20)
+    df_master = im.url_images_to_bucket(df, fraction=1.0/8.0)
