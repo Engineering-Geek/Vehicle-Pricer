@@ -81,5 +81,5 @@ class ImageManager:
 
 if __name__ == "__main__":
     im = ImageManager('sagemaker-vehicle-pricer-data')
-    df = im.scrape()
-    df_master = im.url_images_to_bucket(df, fraction=0.0625)
+    df = im.scrape(n_makes=10)
+    df_master = im.url_images_to_bucket(df, fraction=1.0/16.0)

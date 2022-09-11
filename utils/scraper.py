@@ -22,8 +22,8 @@ Final DataFrame format:
 
 
 class Scraper:
-    def __init__(self, n_makes: int):
-        self.df = self.get_image_links_df(n_makes)
+    def __init__(self):
+        self.df = None
 
 
     def _fetch(self, page, addition='')->bs.BeautifulSoup:
@@ -112,7 +112,7 @@ class Scraper:
 
     def scrape(self, n_makes: int = None)->pd.DataFrame:
         makes_list = self._all_makes(n_makes)
-        b = self._make_menu(makes_list)
-        specs = self._get_model_specification_links(b)
-        df = self._specs_and_pics(specs)
-        return df
+        make_menu = self._make_menu(makes_list)
+        specs = self._get_model_specification_links(make_menu)
+        self.df = self._specs_and_pics(specs)
+        return self.df
