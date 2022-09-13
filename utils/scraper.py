@@ -43,7 +43,7 @@ class Scraper:
         return soup
 
 
-    def _all_makes(self, n_makes: int)->list:
+    def _all_makes(self, n_makes: int = None)->list:
         all_makes_list = []
         for a in self._fetch(website, "/used-cars").find_all("a", {"class": ""}):
             if a: all_makes_list.append(a['href'])

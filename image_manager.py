@@ -50,7 +50,7 @@ class ImageManager:
             for i, url in enumerate(tqdm(choices(urls, k=int(len(urls)*fraction)), 
                                          desc='downloading images for {} {} {}'.format(row['Make'], row['Model'], row['Year']), 
                                          total=int(len(urls)*fraction))):
-                filepath = 'images/{}/{}/{}_{}.jpg'.format(row['Make'], row['Model'], row['Year'], i)
+                filepath = 'images/{}/{}/{}/{}/_{}.jpg'.format(row['Make'], row['Model'], row['Year'], row["MSRP"], i)
                 image_filepaths.append(filepath)
                 self._url_image_to_bucket(template + url, filepath)
                 
@@ -81,6 +81,8 @@ class ImageManager:
 
 if __name__ == "__main__":
     im = ImageManager('sagemaker-vehicle-pricer-data')
+    print("purging...")
     im.purge_bucket()
-    df = im.scrape(n_makes=20)
-    df_master = im.url_images_to_bucket(df, fraction=1.0/8.0)
+    print("purged")
+    df = im.scrape(n_makes=10)
+    df_master = im.url_images_to_bucket(df, fraction=0.0625)
