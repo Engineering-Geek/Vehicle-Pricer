@@ -42,24 +42,29 @@ class ImageManager:
         DataFrame should have columns 'Make', 'Model', 'Year', 'Image'
         """
         data = df.sample(frac=fraction)
-        data['Picture Links'] = data['Picture Links']
-        master_csv = pd.DataFrame(columns=['Make', 'Model', 'Year', 'MSRP', 'Filepaths'])
+        master_csv = pd.DataFrame(columns=['Make', 'Model', 'Year', 'MSRP', 'Filepaths', 'Dirpath'])
         for i, row in tqdm(data.iterrows(), desc='downloading images', total=len(data)):
             urls = row['Picture Links']
             image_filepaths = []
             for i, url in enumerate(tqdm(choices(urls, k=int(len(urls)*fraction)), 
                                          desc='downloading images for {} {} {}'.format(row['Make'], row['Model'], row['Year']), 
                                          total=int(len(urls)*fraction))):
+<<<<<<< HEAD
                 filepath = 'images/{}/{}/{}/{}/_{}.jpg'.format(row['Make'], row['Model'], row['Year'], row["MSRP"], i)
+=======
+                filepath = 'images/{}/{}/{}/{}.jpg'.format(row['Make'], row['Model'], row['Year'], i)
+>>>>>>> 75750cc2b63934bc76f0d85247ce280f8db7351b
                 image_filepaths.append(filepath)
                 self._url_image_to_bucket(template + url, filepath)
                 
+            dirpath = 'images/{}/{}/{}'.format(row['Make'], row['Model'], row['Year'])
             master_csv.loc[len(master_csv)] = [
                 row['Make'], 
                 row['Model'], 
                 row['Year'],
                 row['MSRP'],
-                image_filepaths
+                image_filepaths,
+                dirpath
             ]
         master_csv.to_csv('master.csv', index=False)
         self._df_to_bucket(master_csv, 'master.csv')
