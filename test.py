@@ -25,4 +25,3 @@ for file in my_bucket.objects.all():
         last_modified_date = file_date
 
 print(last_modified_date)
->>>>>>> 75750cc2b63934bc76f0d85247ce280f8db7351b

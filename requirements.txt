@@ -1,6 +1,9 @@
+# Make sure you install pytorch manually according to your system configuration if needed.
 pandas
 requests
 beautifulsoup4
 lxml
+pytorch-lightning
 boto3
 tqdm
+https://aws-s3-plugin.s3.us-west-2.amazonaws.com/binaries/0.0.1/bd37e27/awsio-0.0.1%2Bbd37e27-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
